@@ -10,15 +10,15 @@ async function main() {
             data: game
         })
     }
-    // for (let user of users) {
-    //     await prisma.authenticationUser.create({
-    //         data: {
-    //             username: user.username,
-    //             password: user.password,
-    //             role: user.role
-    //         }
-    //     })
-    // }
+    for (let user of users) {
+        await prisma.authenticationUser.create({
+            data: {
+                username: user.username,
+                password: user.password,
+                role: user.role
+            }
+        })
+    }
 }
 
 main().catch(e => {
