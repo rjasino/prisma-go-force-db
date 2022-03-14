@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  //url      = env("GOFORCE_DATABASE_URL")
+}
+
+// model Teacher {
+//   id Int @id @default(autoincrement())
+//   lastName String? @db.VarChar(30)
+//   firstName String? @db.VarChar(30)
+//   middleName String? @db.VarChar(30)
+//   email String @unique  //supplied by firebase
+//   address String?
+//   gender Gender @default(MALE)
+//   avatar String?
+//   birthdate DateTime?
+//   sched TeacherSchedule[]
+// }
+
+// model Schedule {
+//   id Int @id @default(autoincrement())
+//   sched DateTime
+//   teacher TeacherSchedule[]
+// }
+
+// model TeacherSchedule {
+//   id Int @default(autoincrement())
+//   teacher Teacher @relation(fields: [teacherId], references: [id])
+//   schedule Schedule @relation(fields: [scheduleId], references: [id])
+//   teacherId Int
+//   scheduleId Int
+//   @@id([teacherId, scheduleId])
+// }
+
+// enum Gender {
+//   MALE
+//   FEMALE
+// }
+
+// model Student {
+//   id Int @id @default(autoincrement())
+//   lastName String
+//   firstName String
+//   email String @unique
+//   address String
+//   avatar String
+// }
+
+model User {
+  id               Int      @id @default(autoincrement())
+  name             String?  @db.VarChar(50)
+  email            String   @db.VarChar(50)
+  remarks          String?  @db.VarChar(500)
+  games            String?  @db.VarChar(500)
+  platform         String?  @db.VarChar(500)
+  uid              String   @unique
+  registrationDate DateTime @default(now()) @db.Timestamp()
+  role             Role     @default(AUDIENCE)
+  vote             Vote[]
+}
+
+enum Role {
+  PLAYER
+  ADMIN
+  AUDIENCE
+}
+
+model Game {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(100)
+  developer   String?  @db.VarChar(30)
+  publisher   String?  @db.VarChar(30)
+  releaseDate DateTime @db.Date
+  genre       String?  @db.VarChar(50)
+  platform    String?  @db.VarChar(100)
+  artCover    String?
+  alt         String?  @db.VarChar(50)
+  description String?
+  createdDate DateTime @default(now()) @db.Timestamp()
+  voteShow    Boolean  @db.Boolean @default(false)
+  vote        Vote[]
+}
+
+model Vote {
+  id         Int       @default(autoincrement())
+  userId     Int
+  gameId     Int
+  user       User      @relation(fields: [userId], references: [id])
+  game       Game      @relation(fields: [gameId], references: [id])
+  voteCasted VoteType?
+  quarter    Int
+
+  @@id([userId, gameId])
+}
+
+enum VoteType {
+  NOGO
+  GO
+  GOTY
+  GOAT
+}
+
+model AuthenticationUser {
+  id       Int    @id @default(autoincrement())
+  username String @unique @db.VarChar(50)
+  password String
+  role     Role   @default(ADMIN)
+}

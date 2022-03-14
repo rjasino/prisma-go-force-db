@@ -1,0 +1,29 @@
+{
+    "name": "esl_solution_api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "prisma": {
+        "seed": "ts-node prisma/seed.ts"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "^3.10.0",
+        "bcrypt": "^5.0.1",
+        "cors": "^2.8.5",
+        "express": "^4.17.3",
+        "jsonwebtoken": "^8.5.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15",
+        "prisma": "^3.10.0",
+        "ts-node": "^10.7.0",
+        "typescript": "^4.6.2"
+    }
+}

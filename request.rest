@@ -1,0 +1,25 @@
+POST http://localhost:5000/api/v1/login/register
+Content-Type: application/json
+
+{
+    "username": "root",
+    "password": "rootpassword"
+}
+
+###
+
+GET http://localhost:5000/api/v1/goforce/games
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.cm9vdA.NJcLN9aW8yifowdPPGKrAv8ypLEfso3T0k0plC6AYdY
+
+###
+
+POST http://localhost:5000/api/v1/login/token
+Content-Type: application/json
+
+{
+    "username": "root",
+    "password": "rootpassword"
+}
+
+###
+GET http://localhost:5000/api/v1/goforce/user?email=sample@sample.com
